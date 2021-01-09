@@ -56,6 +56,7 @@ function heightCheck(e){
         alertText.textContent = '';
     }
 }
+
 function weightCheck(e){
     let Height = inputHeight.value;
     let Weight = inputWeight.value;
