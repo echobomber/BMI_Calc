@@ -139,11 +139,13 @@ body, html{
     color: $weight-xxxl;
     font-size: 1.25rem;
 }
+.listPanel{
+    width: 100%;
+}
 .listItem{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
     background-color: #ffffff;
     border-left: 6px solid;
     padding: 20px 0;

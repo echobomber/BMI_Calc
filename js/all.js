@@ -1,40 +1,41 @@
 let submitBtn = document.querySelector('.submitBtn');
 let refreshBtn = document.querySelector('.refreshBtn');
-let listDelete = document.querySelector('.listDelete');
 let inputHeight = document.querySelector('#height');
 let inputWeight = document.querySelector('#weight');
 let alertText = document.querySelector('.alertText');
-let statusList = JSON.parse(localStorage.getItem('statusList')) || [];
-
-function refreshPageList(e){
-    let calcList = document.querySelector('.calcList');
+let listPanel = document.querySelector('.listPanel');
+let statusList =[];
+function refreshListPanel(e){
+    let listPanel = document.querySelector('.listPanel');
     let str = '';
+    statusList = JSON.parse(localStorage.getItem('statusList')) || [];
     for(let i=0; i<statusList.length; i++){
         str += 
         `
-        <div class="listItem">
-            <div class="listStatus">理想</div>
+        <div class="listItem weight-${statusList[i].status}-border">
+            <div class="listStatus">${statusList[i].statusText}</div>
             <div class="listBMI">
                 <h5>BMI</h5>
-                <p></p>
+                <p>${statusList[i].bmi}</p>
             </div>
             <div class="listWeight">
                 <h5>weight</h5>
-                <p></p>
+                <p>${statusList[i].weight}</p>
             </div>
             <div class="listHeight">
                 <h5>height</h5>
-                <p></p>
+                <p>${statusList[i].height}</p>
             </div>
             <div class="listDate">
-                <h5>sss</h5>
+                <h5>${statusList[i].date}</h5>
             </div>
-            <a href="#" class="listDelete"><img src="img/trash-can.svg"></a>
+            <a href="#" class="listDelete"><img src="img/trash-can.svg" data-num = "${i}"></a>
         </div>
         `
     }
+    listPanel.innerHTML = str;
 }
-refreshPageList();
+refreshListPanel();
 
 function heightCheck(e){
     let Height = inputHeight.value;
@@ -80,7 +81,7 @@ function addList(e){
     let Weight = inputWeight.value;
     let BMI = Weight / Math.pow(Height/100, 2);
     BMI = parseFloat(BMI.toFixed(2));
-    let Date = 123;   /// 待改
+    let Date = '06-19-2017';   /// 待改
     let statusItem = {};
     if(Height === "" || Height === " "){    
         alertText.textContent = '欄位有誤';
@@ -129,15 +130,39 @@ function addList(e){
     statusItem.height = Height;
     statusItem.date = Date;
     statusList.push(statusItem);
-    // console.log(statusList);
     localStorage.setItem('statusList', JSON.stringify(statusList));
-    //塞入 HTML
-    let calcList = document.querySelector('.calcList');
-    let str = '';
+    //更新 listPanel
+    refreshListPanel();
+    //更新 statusPanel
+    let status = document.querySelector('.status');
+    document.querySelector('.status h3').textContent = statusItem.bmi;
+    document.querySelector('.statusText').textContent = statusItem.statusText;
+    submitBtn.style.display = 'none';
+    status.style.display = 'flex';
+    refreshBtn.classList.add(`weight-${statusItem.status}-bg`);
+    status.classList.add(`weight-${statusItem.status}-color`);
 }
-
+function resetInput(e){
+    e.preventDefault();
+    let status = document.querySelector('.status');
+    status.style.display = 'none';
+    submitBtn.style.display = 'block';
+    inputHeight.value = '';
+    inputWeight.value = '';
+}
+function deleteListItem(e){
+    //刪除有誤
+    e.preventDefault();
+    if(e.target.nodeName == 'IMG'){
+        // console.log(e.target.dataset.num);
+        let dataNum = e.target.dataset.num;
+        statusList.splice(dataNum, 1);
+        localStorage.setItem('statusList', JSON.stringify(statusList));
+        refreshListPanel();
+    }
+}
 inputHeight.addEventListener('blur', heightCheck, false);
 inputWeight.addEventListener('blur', weightCheck, false);
 submitBtn.addEventListener('click', addList, false);
-
-// submitBtn.addEventListener('click', )
+refreshBtn.addEventListener('click', resetInput, false);
+listPanel.addEventListener('click', deleteListItem, false);

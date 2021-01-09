@@ -273,6 +273,10 @@ body, html {
   font-size: 1.25rem;
 }
 
+.listPanel {
+  width: 100%;
+}
+
 .listItem {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -282,7 +286,6 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
   background-color: #ffffff;
   border-left: 6px solid;
   padding: 20px 0;
@@ -348,16 +351,28 @@ body, html {
   background-color: #31BAF9;
 }
 
-.weight-xl-color {
+.weight-fat-color {
   color: #FF982D;
 }
 
-.weight-xl-border {
+.weight-fat-border {
   border-color: #FF982D;
 }
 
-.weight-xl-bg {
+.weight-fat-bg {
   background-color: #FF982D;
+}
+
+.weight-xl-color {
+  color: #FF6C02;
+}
+
+.weight-xl-border {
+  border-color: #FF6C02;
+}
+
+.weight-xl-bg {
+  background-color: #FF6C02;
 }
 
 .weight-xxl-color {

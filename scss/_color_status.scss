@@ -9,6 +9,11 @@
     &-border{border-color: $weight-light;}
     &-bg{background-color: $weight-light;}
 }
+.weight-fat{
+    &-color{color: $weight-fat;}
+    &-border{border-color: $weight-fat;}
+    &-bg{background-color: $weight-fat;}
+}
 .weight-xl{
     &-color{color: $weight-xl;}
     &-border{border-color: $weight-xl;}
