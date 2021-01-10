@@ -162,7 +162,7 @@ function resetInput(e){
 function deleteListItem(e){
     //刪除有誤
     e.preventDefault();
-    if(e.target.nodeName == 'IMG'){
+    if(e.target.parentElement.className == 'listDelete'){
         let dataNum = e.target.dataset.num;
         statusList.splice(dataNum, 1);
         localStorage.setItem('statusList', JSON.stringify(statusList));
