@@ -167,6 +167,7 @@ function deleteListItem(e){
         statusList.splice(dataNum, 1);
         localStorage.setItem('statusList', JSON.stringify(statusList));
         refreshListPanel();
+        refreshClearBtn();
     }
 }
 function clearAllItem(e){
