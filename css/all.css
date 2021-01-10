@@ -70,6 +70,11 @@ body, html {
   background-color: #efefef;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 .wrap {
   max-width: 800px;
   margin: 0 auto;
@@ -281,38 +286,56 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #ffffff;
   border-left: 6px solid;
-  padding: 20px 0;
+  padding: 20px 5%;
   margin-bottom: 20px;
 }
 
-.listBMI, .listWeight, .listHeight, .listDate {
+.listItem > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 15%;
 }
 
-.listBMI h5, .listWeight h5, .listHeight h5, .listDate h5 {
+.listItem > div h5 {
   font-size: 0.8rem;
   margin-right: 5px;
 }
 
-.listBMI p, .listWeight p, .listHeight p, .listDate p {
+.listItem > div p {
   font-size: 1.5rem;
+}
+
+.listItem > div:last-child {
+  width: 5%;
 }
 
 .listDelete {
   display: block;
+  width: 100%;
+}
+
+.listDelete img {
+  margin: 0 auto;
   width: 30px;
+}
+
+.clearAll {
+  display: none;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .footer {

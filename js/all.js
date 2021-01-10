@@ -4,12 +4,13 @@ let inputHeight = document.querySelector('#height');
 let inputWeight = document.querySelector('#weight');
 let alertText = document.querySelector('.alertText');
 let listPanel = document.querySelector('.listPanel');
-let statusList =[];
+let clearAll = document.querySelector('.clearAll');
+let statusList = [];
 function refreshListPanel(e){
     let listPanel = document.querySelector('.listPanel');
     let str = '';
     statusList = JSON.parse(localStorage.getItem('statusList')) || [];
-    for(let i=0; i<statusList.length; i++){
+    for(let i = statusList.length-1; i >= 0; i--){
         str += 
         `
         <div class="listItem weight-${statusList[i].status}-border">
@@ -29,14 +30,14 @@ function refreshListPanel(e){
             <div class="listDate">
                 <h5>${statusList[i].date}</h5>
             </div>
-            <a href="#" class="listDelete"><img src="img/trash-can.svg" data-num = "${i}"></a>
+            <div>
+                <a href="#" class="listDelete"><img src="img/trash-can.svg" data-num = "${i}"></a>    
+            </div>
         </div>
         `
     }
     listPanel.innerHTML = str;
 }
-refreshListPanel();
-
 function heightCheck(e){
     let Height = inputHeight.value;
     let Weight = inputWeight.value;
@@ -56,7 +57,6 @@ function heightCheck(e){
         alertText.textContent = '';
     }
 }
-
 function weightCheck(e){
     let Height = inputHeight.value;
     let Weight = inputWeight.value;
@@ -75,6 +75,12 @@ function weightCheck(e){
     }else{
         alertText.textContent = '';
     }
+}
+//取得日期
+function today(){
+    var date = new Date();
+    var time = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+    return time;
 }
 function addList(e){
     e.preventDefault();
@@ -129,7 +135,7 @@ function addList(e){
     statusItem.bmi = BMI;
     statusItem.weight = Weight;
     statusItem.height = Height;
-    statusItem.date = Date;
+    statusItem.date = today();
     statusList.push(statusItem);
     localStorage.setItem('statusList', JSON.stringify(statusList));
     //更新 listPanel
@@ -140,8 +146,10 @@ function addList(e){
     document.querySelector('.statusText').textContent = statusItem.statusText;
     submitBtn.style.display = 'none';
     status.style.display = 'flex';
-    refreshBtn.classList.add(`weight-${statusItem.status}-bg`);
-    status.classList.add(`weight-${statusItem.status}-color`);
+    refreshBtn.setAttribute('class', "refreshBtn " + `weight-${statusItem.status}-bg`);
+    status.setAttribute('class', "status " + `weight-${statusItem.status}-color`);
+    // 更新刪除全部狀態
+    refreshClearBtn();
 }
 function resetInput(e){
     e.preventDefault();
@@ -155,15 +163,32 @@ function deleteListItem(e){
     //刪除有誤
     e.preventDefault();
     if(e.target.nodeName == 'IMG'){
-        // console.log(e.target.dataset.num);
         let dataNum = e.target.dataset.num;
         statusList.splice(dataNum, 1);
         localStorage.setItem('statusList', JSON.stringify(statusList));
         refreshListPanel();
     }
 }
+function clearAllItem(e){
+    e.preventDefault();
+    localStorage.removeItem('statusList');
+    refreshListPanel();
+    this.style.display = 'none';
+}
+function refreshClearBtn(){
+    let statusList = JSON.parse(localStorage.getItem('statusList')) || [];
+    if(statusList.length != 0){
+        clearAll.style.display = 'block';
+    }else{
+        clearAll.style.display = 'none';
+    }
+}
+// 
+refreshListPanel();
+refreshClearBtn();
 inputHeight.addEventListener('blur', heightCheck, false);
 inputWeight.addEventListener('blur', weightCheck, false);
 submitBtn.addEventListener('click', addList, false);
 refreshBtn.addEventListener('click', resetInput, false);
 listPanel.addEventListener('click', deleteListItem, false);
+clearAll.addEventListener('click', clearAllItem, false);

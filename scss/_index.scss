@@ -7,6 +7,10 @@ body, html{
     color: $primary-dark;
     background-color: $body-color;
 }
+img{
+    max-width: 100%;
+    display: block;
+}
 .wrap{
     max-width: 800px;
     margin: 0 auto;
@@ -144,28 +148,43 @@ body, html{
 }
 .listItem{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
     border-left: 6px solid;
-    padding: 20px 0;
+    padding: 20px 5%;
     margin-bottom: 20px;
-}
-.listBMI, .listWeight, .listHeight, .listDate{
-    display: flex;
-    align-items: center;
-    h5{
-        font-size: 0.8rem;
-        margin-right: 5px;
+    & > div{
+        display: flex;
+        align-items: center;
+        width: 15%;
+        h5{
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        p{
+            font-size: 1.5rem;
+        }
     }
-    p{
-        font-size: 1.5rem;
+    & > div:last-child{
+        width: 5%;
     }
 }
 .listDelete{
     display: block;
-    width: 30px;
+    width: 100%;
+    img{
+        margin: 0 auto;
+        width: 30px;
+    }
 }
+.clearAll{
+    display: none;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+//
 .footer{
     display: flex;
     justify-content: center;
