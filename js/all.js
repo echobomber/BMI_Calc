@@ -88,7 +88,7 @@ function addList(e){
     let Weight = inputWeight.value;
     let BMI = Weight / Math.pow(Height/100, 2);
     BMI = parseFloat(BMI.toFixed(2));
-    let Date = '06-19-2017';   /// 待改
+    // let Date = '';   
     let statusItem = {};
     if(Height === "" || Height === " "){    
         alertText.textContent = '欄位有誤';
